@@ -88,9 +88,12 @@ Login dengan default `id: razer` (bisa diubah di source).
 
 ---
 
-## 🧪 Screenshot
+<details open><summary><h2>🧪 Screenshot</h2></summary>
 
-> *Tambahkan screenshot panel & client jika ada*
+<br>
+<a href="https://github.com/ViewTechOrg/Server/blob/main/ratC2/photo_2025-08-03_22-29-27.jpg"><img src="https://github.com/ViewTechOrg/Server/blob/main/ratC2/photo_2025-08-03_22-29-27.jpg"></a>
+
+</details>
 
 ---
 
