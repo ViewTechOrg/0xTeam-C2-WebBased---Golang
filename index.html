@@ -1,1 +1,483 @@
-<p>halo</p>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checker Scammer - Dokumentasi</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'cyber-blue': '#3b82f6',
+            'cyber-green': '#10b981',
+            'tech-gray': '#1f2937',
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.6s ease-out',
+            'slide-in-right': 'slideInRight 0.8s ease-out',
+            'scale-in': 'scaleIn 0.4s ease-out',
+            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+            'float': 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideInRight: {
+              '0%': { opacity: '0', transform: 'translateX(100px)' },
+              '100%': { opacity: '1', transform: 'translateX(0)' }
+            },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.95)' },
+              '100%': { opacity: '1', transform: 'scale(1)' }
+            },
+            glowPulse: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+              '50%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.6)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #1f2937, #1e40af);
+    }
+
+    .dark .hero-gradient {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    }
+
+    .cyber-glow {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(31, 41, 55, 0.1);
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 40px rgba(31, 41, 55, 0.15);
+    }
+
+    .dark .card-hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .dark .card-hover:hover {
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .button-glow {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .button-glow:hover {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .button-glow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .button-glow:hover::before {
+      left: 100%;
+    }
+
+    .code-block {
+      background: #1f2937;
+      color: #10b981;
+      font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      position: relative;
+    }
+
+    .code-block::before {
+      content: '$ ';
+      color: #3b82f6;
+      font-weight: bold;
+    }
+
+    .link-hover {
+      position: relative;
+      display: inline-block;
+    }
+
+    .link-hover::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #3b82f6;
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    .link-hover:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    .social-icon {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .social-icon:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .animate-on-scroll.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .code-container:hover .copy-button {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .dark .feature-icon {
+      background: rgba(59, 130, 246, 0.2);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-all duration-300">
+  <!-- Header -->
+  <header class="hero-gradient text-white py-8 sticky top-0 z-50 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center gap-4 animate-slide-in-right">
+        <div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center animate-glow-pulse">
+          <i class="fas fa-shield-alt text-cyber-green text-xl"></i>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold">0x Team C2</h1>
+          <p class="text-sm text-white/80 mt-1">
+            Dapatkan akses komputer ke target!
+          </p>
+        </div>
+      </div>
+      <button id="darkToggle" class="button-glow bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm flex items-center gap-2 border border-white/20">
+        <i id="toggleIcon" class="fas fa-moon"></i>
+        <span id="toggleText" class="hidden sm:inline">Gelap</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+    <!-- Hero Section -->
+    <section class="text-center space-y-6 animate-on-scroll">
+      <div class="relative">
+        <h2 class="text-5xl font-bold gradient-text animate-float">
+          Dokumentasi
+        </h2>
+        <div class="absolute -inset-4 bg-gradient-to-r from-cyber-blue/20 to-cyber-green/20 blur-lg rounded-full opacity-30"></div>
+      </div>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+        Alat untuk mendapatkan akses penuh ke komputer korban
+      </p>
+    </section>
+
+    <!-- What is 0x Team C2 -->
+    <section class="animate-on-scroll">
+      <div class="bg-white dark:bg-gray-800 p-8 rounded-xl card-hover">
+        <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+          <i class="fas fa-shield-alt text-cyber-blue text-2xl"></i>
+          Apa itu 0x Team C2
+        </h2>
+        <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+          <strong class="text-gray-900 dark:text-white">0x Team C2</strong> adalah alat Remote Access Trojan (RAT) yang dapat dikontrol melalui website lokal.
+
+	Backend listener dibuat dengan Golang
+	Payload (client) dibuat dengan C++
+	Sistem kontrol dijalankan langsung dari browser (localhost:8080)
+	Uniknya, kontrol RAT ini dilakukan sepenuhnya melalui tampilan website, bukan GUI native.
+
+
+        </p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="animate-on-scroll">
+      <div class="space-y-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Fitur Utama</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl card-hover" style="animation-delay: 0ms;">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 rounded-lg feature-icon flex items-center justify-center">
+                <i class="fas fa-mobile-alt text-cyber-blue text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg mb-2">Stealer</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Mencuri Password yang di simpan dari browser.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl card-hover" style="animation-delay: 200ms;">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 rounded-lg feature-icon flex items-center justify-center">
+                <i class="fas fa-database text-cyber-blue text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg mb-2">Remote Desktop</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Monitoring komputer korban secara live.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl card-hover" style="animation-delay: 400ms;">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 rounded-lg feature-icon flex items-center justify-center">
+                <i class="fas fa-eye text-cyber-blue text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg mb-2">Persistence</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Membuat malware tetap aktif walaupun korban restart/shutdown.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+
+    <!-- Installation Guide -->
+    <section class="animate-on-scroll">
+      <div class="bg-white dark:bg-gray-800 p-8 rounded-xl card-hover">
+        <h2 class="text-3xl font-bold mb-8">Cara Install & Jalankan</h2>
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-xl font-semibold mb-4">1. Instalasi</h3>
+            <p class="mb-4 text-gray-600 dark:text-gray-400">Download Visual studio 2022 dan Golang (Windows)</p>
+            <div class="code-container relative">
+              <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">go run server.go
+Buka "http://localhost:8080" di web
+login menggunakan id "razer", bisa di ubah
+Buka folder GoAheadClient
+buka file .sln menggunakan visual studio
+Tekanl CTRL + SHIFT + B
+</pre>
+              
+            </div>
+          </div>
+          
+          
+
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="animate-on-scroll">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl card-hover">
+          <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <i class="fab fa-github text-gray-900 dark:text-white"></i>
+            Dokumentasi Resmi
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Untuk informasi lebih lanjut dan update terbaru, kunjungi repositori GitHub:
+          </p>
+          <a href="https://github.com/ViewTechOrg/0xTeam-C2-WebBased---Golang/" target="_blank" 
+             class="button-glow bg-cyber-blue hover:bg-blue-600 text-white px-6 py-3 rounded-lg inline-flex items-center gap-2 link-hover">
+            Lihat di GitHub
+            <i class="fas fa-external-link-alt text-sm"></i>
+          </a>
+        </div>
+
+        
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="hero-gradient text-white py-12 mt-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center space-y-8 animate-on-scroll">
+        <div class="flex justify-center gap-4 flex-wrap">
+          <a href="https://github.com/ViewTechOrg" target="_blank" 
+             class="social-icon w-12 h-12 rounded-full flex items-center justify-center text-xl" 
+             title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://instagram.com/viewtechorg" target="_blank" 
+             class="social-icon w-12 h-12 rounded-full flex items-center justify-center text-xl" 
+             title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://wa.me/6281234567890" target="_blank" 
+             class="social-icon w-12 h-12 rounded-full flex items-center justify-center text-xl" 
+             title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="mailto:jackkd414@gmail.com" 
+             class="social-icon w-12 h-12 rounded-full flex items-center justify-center text-xl" 
+             title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://youtube.com" target="_blank" 
+             class="social-icon w-12 h-12 rounded-full flex items-center justify-center text-xl" 
+             title="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+        <p class="text-white/80">
+          &copy; 2025 Checker Scammer Docs. Dibuat oleh ViewTechOrg dengan ❤️
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    const darkToggle = document.getElementById('darkToggle');
+    const toggleIcon = document.getElementById('toggleIcon');
+    const toggleText = document.getElementById('toggleText');
+    
+    // Check for saved dark mode preference
+    const isDarkStored = localStorage.getItem('darkMode') === 'true';
+    if (isDarkStored) {
+      document.documentElement.classList.add('dark');
+      toggleIcon.className = 'fas fa-sun';
+      toggleText.textContent = 'Terang';
+    }
+
+    darkToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('darkMode', isDark);
+      
+      toggleIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+      toggleText.textContent = isDark ? 'Terang' : 'Gelap';
+    });
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animate-on-scroll elements
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Copy code function
+    function copyCode(button) {
+      const codeBlock = button.parentElement.querySelector('pre');
+      const code = codeBlock.textContent;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+        
+        setTimeout(() => {
+          button.innerHTML = originalHTML;
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    }
+
+    // Add smooth scroll behavior for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add loading animation on page load
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+  </script>
+</body>
+</html>
